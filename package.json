@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "author": "https://github.com/rakibdev",
   "main": "./src/main.ts",
-  "scripts": {
-    "postinstall": "git apply --directory=node_modules/@material/material-color-utilities patches/material-color-utilities@0.3.0.patch"
-  },
   "devDependencies": {
     "@types/bun": "^1.1.13"
   },
   "description": "Material You color generator.",
+  "scripts": {
+    "prepare": "git apply --directory=node_modules/@material/material-color-utilities patches/material-color-utilities@0.3.0.patch"
+  },
   "type": "module",
   "dependencies": {
     "@material/material-color-utilities": "^0.3.0"
