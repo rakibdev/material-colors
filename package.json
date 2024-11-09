@@ -4,17 +4,7 @@
   "version": "1.0.0",
   "author": "https://github.com/rakibdev",
   "type": "module",
-  "scripts": {
-    "build": "bun test && bun bundle && bun build:types",
-    "bundle": "bun build ./src/main.ts --outdir ./build --minify",
-    "build:types": "tsc --project ./tsconfig.types.json"
-  },
-  "exports": {
-    ".": {
-      "import": "./build/main.js",
-      "types": "./build/main.d.ts"
-    }
-  },
+  "main": "./src/main.ts",
   "dependencies": {
     "@material/material-color-utilities": "^0.3.0"
   },
@@ -22,7 +12,6 @@
     "@material/material-color-utilities@0.3.0": "patches/@material%2Fmaterial-color-utilities@0.3.0.patch"
   },
   "devDependencies": {
-    "@types/bun": "^1.1.11",
-    "typescript": "^5.6.3"
+    "@types/bun": "^1.1.11"
   }
 }

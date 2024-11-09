@@ -1,4 +1,15 @@
-Google's Material 3 color tokens spec felt overwhelming to me. So I created a simplified version. This package is also more lightweight than official `material-color-utilities`.
+I found Google's Material 3 color token specification complex. So I created a simplified version. And this package have better tree-shaking than **material-color-utilities**. Currently I'm using this in a UI library, a VS Code theme, and a userscript.
+
+## Installation
+
+```
+bun add github:rakibdev/material-colors
+```
+
+> [!NOTE]
+> This is a TypeScript only package.
+
+## Usage
 
 ```ts
 import * as materialColors from 'material-colors'
@@ -6,14 +17,14 @@ import * as materialColors from 'material-colors'
 // Tone is lightness.
 // Higher means lighter but in dark mode higher is darker.
 const tones = [20, 40, 80] as const
-const colors = materialColors.createMaterialColors({
+const colors = materialColors.generate({
   tones,
   darkMode: true,
   colors: { primary: '#HEX', error: '#HEX' }
 })
 
 // TypeScript autocomplete is available on colors.
-console.log(flattenMaterialColors(colors))
+console.log(materialColors.flatten(colors))
 ```
 
 Output

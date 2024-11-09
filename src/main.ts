@@ -55,10 +55,7 @@ export type MaterialColors<Colors extends Record<string, string>, Tones extends 
   [K in keyof Colors | 'neutral']: ToneVariants<Tones> & (K extends 'neutral' ? {} : { surfaces: SurfaceVariants })
 }
 
-export const createMaterialColors = <
-  Colors extends Record<string, string>,
-  Tones extends readonly number[] = Options['tones']
->(
+export const generate = <Colors extends Record<string, string>, Tones extends readonly number[] = Options['tones']>(
   userOptions?: DeepPartial<Options<Colors, Tones>>
 ) => {
   // defaultOptions['tones'] is tuple, userOptions['tones'] is number[].
@@ -92,7 +89,7 @@ export type FlatMaterialColors<Colors extends Record<string, string>, Tones exte
   [K in keyof Tones as `neutral_${Tones[number]}`]: string
 }
 
-export const flattenMaterialColors = <Colors extends Record<string, string>, Tones extends readonly number[]>(
+export const flatten = <Colors extends Record<string, string>, Tones extends readonly number[]>(
   colors: MaterialColors<Colors, Tones>
 ) => {
   const result = {} as Record<string, string>
