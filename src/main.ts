@@ -100,7 +100,7 @@ export const flatten = <Colors extends Record<string, string>, Tones extends rea
     for (const [key, value] of Object.entries(variants) as Entries<typeof variants>) {
       if (key == 'surfaces') {
         for (const [surface, surfaceVariants] of Object.entries(value)) {
-          result[`${String(name)}_surface_${surface}`] = surfaceVariants
+          result[`${String(name)}_surface${surface == '1' ? '' : `_${surface}`}`] = surfaceVariants
         }
       }
       // Tones.
