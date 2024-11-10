@@ -25,7 +25,7 @@ export declare const generate: <Colors extends Record<string, string>, Tones ext
 export type FlatMaterialColors<Colors extends Record<string, string>, Tones extends readonly number[]> = {
     [K in keyof Colors as `${string & K}_${Tones[number]}`]: string;
 } & {
-    [K in keyof Colors as `${string & K}_surface_${keyof SurfaceVariants}`]: string;
+    [K in keyof Colors as `${string & K}_surface` | `${string & K}_surface_${Exclude<keyof SurfaceVariants, '1'>}`]: string;
 } & {
     [K in keyof Tones as `neutral_${Tones[number]}`]: string;
 };
