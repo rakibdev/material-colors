@@ -8,7 +8,7 @@
   },
   "description": "Material You color generator.",
   "scripts": {
-    "prepare": "git apply --directory=node_modules/@material/material-color-utilities patches/material-color-utilities@0.3.0.patch"
+    "prepare": "node patches/material-color-utilities.js"
   },
   "type": "module",
   "dependencies": {
