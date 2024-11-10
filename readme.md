@@ -6,9 +6,6 @@ I found Google's Material 3 color token specification complex. So I created a si
 bun add github:rakibdev/material-colors
 ```
 
-> [!NOTE]
-> This is a TypeScript only package.
-
 ## Usage
 
 ```ts
