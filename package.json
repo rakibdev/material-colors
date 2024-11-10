@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "author": "https://github.com/rakibdev",
   "type": "module",
+  "files": [
+    "build/**/*"
+  ],
   "exports": {
     ".": {
       "import": "./build/main.js",
