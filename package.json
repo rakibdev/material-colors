@@ -1,11 +1,11 @@
 {
   "name": "material-colors",
   "description": "Material You color generator.",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "author": "https://github.com/rakibdev",
   "type": "module",
   "files": [
-    "build/**/*"
+    "build"
   ],
   "exports": {
     ".": {
