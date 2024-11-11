@@ -3,7 +3,7 @@ I found Google's Material 3 color token specification complex. So I created a si
 ## Installation
 
 ```
-bun add github:rakibdev/material-colors
+bun add https://github.com/rakibdev/material-colors/releases/download/1.0.0/material-colors.tgz
 ```
 
 ## Usage
