@@ -17,7 +17,8 @@
     "build": "bun test && bun build:src && bun build:types",
     "build:src": "bun build ./src/main.ts --outdir ./build --minify",
     "build:types": "tsc --project ./tsconfig.types.json",
-    "patch": "git apply --directory=node_modules/@material/material-color-utilities ./patches/material-color-utilities@0.3.0.patch"
+    "patch": "git apply --directory=node_modules/@material/material-color-utilities ./patches/material-color-utilities@0.3.0.patch",
+    "pack": "bun pm pack"
   },
   "devDependencies": {
     "@material/material-color-utilities": "^0.3.0",
