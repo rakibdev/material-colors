@@ -5,7 +5,7 @@ Currently I'm using this in a UI library, VS Code theme, and userscript.
 ## Installation
 
 ```
-bun add https://github.com/rakibdev/material-colors/releases/download/1.0.0/npm.tgz
+bun add https://github.com/rakibdev/material-colors/releases/latest/download/npm.tgz
 ```
 
 ## Usage
