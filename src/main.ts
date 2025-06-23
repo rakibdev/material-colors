@@ -12,8 +12,8 @@ const isPhone = typeof window != 'undefined' && /Android|iPhone/i.test(window.na
 export const isBlue = (hue: number): boolean => hue >= 200 && hue <= 260
 
 export const getNeutralChroma = (hue: number): number => {
-  // Colors other than blue look too colorful at same chroma.
-  if (isPhone) return isBlue(hue) ? 4 : 1.4 // 1.4 matches statusbar color
+  // Colors other than blue look too colorful with same chroma.
+  if (isPhone) return isBlue(hue) ? 4 : 1.4 // 1.4 matches phone statusbar color
   return isBlue(hue) ? 8 : 2
 }
 
@@ -43,7 +43,7 @@ export const createBorderColor = (sourceColor: Hct, dark?: boolean) => {
 }
 
 export const createSurfaceVariants = (sourceColor: Hct, dark?: boolean, chroma?: number) => {
-  // In `material-color-utilities` source code you might see `new ContrastCurve(12, 12, 16, 20)`.
+  // In material-color-utilities source code you might see `new ContrastCurve(12, 12, 16, 20)`.
   // It's just tone = [low, normal, medium, high]. I'm using normal.
   // Normal values can also be found here: https://material-web.dev/theming/color
   const { hue } = sourceColor
