@@ -55,10 +55,10 @@ export const createSurfaceVariants = (sourceColor: Hct, dark?: boolean, chroma?:
 
   return {
     '1': hctToHex(hue, chroma, tones[0]),
-    // Multiplier maintains proportion because different chroma used for blue and others.
-    '2': hctToHex(hue, chroma * 1.1, tones[1]),
-    '3': hctToHex(hue, chroma * 1.2, tones[2]),
-    '4': hctToHex(hue, chroma * 1.3, tones[3])
+    // Multiplier maintains proportion because blue has different chroma.
+    '2': hctToHex(hue, chroma * 1.2, tones[1]),
+    '3': hctToHex(hue, chroma * 1.3, tones[2]),
+    '4': hctToHex(hue, chroma * 1.4, tones[3])
   }
 }
 
