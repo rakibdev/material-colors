@@ -12,9 +12,9 @@ const isPhone = typeof window != 'undefined' && /Android|iPhone/i.test(window.na
 export const isBlue = (hue: number): boolean => hue >= 200 && hue <= 260
 
 export const getNeutralChroma = (hue: number): number => {
-  // Other colors (e.g. Red) look too colorful at same chroma as blue.
-  if (isPhone) return isBlue(hue) ? 4 : 1
-  return isBlue(hue) ? 6 : 2
+  // Colors other than blue look too colorful at same chroma.
+  if (isPhone) return isBlue(hue) ? 4 : 1.4 // 1.4 matches statusbar color
+  return isBlue(hue) ? 8 : 2
 }
 
 export const createPrimaryVariants = (sourceColor: Hct, dark?: boolean) => {
@@ -31,7 +31,7 @@ export const createSecondaryVariants = (sourceColor: Hct, dark?: boolean, chroma
   const { hue } = sourceColor
   chroma ??= dark ? 26 : 32
   return {
-    color: hctToHex(hue, chroma, dark ? 20 : 80),
+    color: hctToHex(hue, chroma, dark ? 30 : 80),
     foreground: hctToHex(hue, chroma, dark ? 80 : 20)
   }
 }
@@ -49,11 +49,16 @@ export const createSurfaceVariants = (sourceColor: Hct, dark?: boolean, chroma?:
   const { hue } = sourceColor
   chroma ??= getNeutralChroma(hue)
 
+  const darkTones = isPhone ? [6, 10, 12, 14] : [8, 12, 14, 16]
+  const lightTones = [98, 94, 92, 90]
+  const tones = dark ? darkTones : lightTones
+
   return {
-    '1': hctToHex(hue, chroma, dark ? 6 : 98),
-    '2': hctToHex(hue, chroma + 1, dark ? 10 : 94),
-    '3': hctToHex(hue, chroma + 2, dark ? 12 : 92),
-    '4': hctToHex(hue, chroma + 3, dark ? 14 : 90)
+    '1': hctToHex(hue, chroma, tones[0]),
+    // Multiplier maintains proportion because different chroma used for blue and others.
+    '2': hctToHex(hue, chroma * 1.1, tones[1]),
+    '3': hctToHex(hue, chroma * 1.2, tones[2]),
+    '4': hctToHex(hue, chroma * 1.3, tones[3])
   }
 }
 
