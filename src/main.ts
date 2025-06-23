@@ -14,7 +14,7 @@ export const isBlue = (hue: number): boolean => hue >= 200 && hue <= 260
 export const getNeutralChroma = (hue: number): number => {
   // Other colors (e.g. Red) look too colorful at same chroma as blue.
   if (isPhone) return isBlue(hue) ? 4 : 1
-  return isBlue(hue) ? 8 : 2
+  return isBlue(hue) ? 6 : 2
 }
 
 export const createPrimaryVariants = (sourceColor: Hct, dark?: boolean) => {
@@ -51,9 +51,9 @@ export const createSurfaceVariants = (sourceColor: Hct, dark?: boolean, chroma?:
 
   return {
     '1': hctToHex(hue, chroma, dark ? 6 : 98),
-    '2': hctToHex(hue, chroma + 2, dark ? 10 : 94),
+    '2': hctToHex(hue, chroma + 1, dark ? 10 : 94),
     '3': hctToHex(hue, chroma + 2, dark ? 12 : 92),
-    '4': hctToHex(hue, chroma + 2, dark ? 14 : 90)
+    '4': hctToHex(hue, chroma + 3, dark ? 14 : 90)
   }
 }
 
