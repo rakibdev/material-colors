@@ -1,5 +1,5 @@
 Google's Material 3 color tokens are too complex.
-This package rethinks colors with a simpler API and improved tree-shaking over **material-color-utilities**.
+This package rethinks colors with a simpler shadcn-like variables and improved tree-shaking over **material-color-utilities**.
 Currently I'm using this in a UI library, VS Code theme, and userscript.
 
 ## Installation
@@ -23,17 +23,16 @@ Output
 
 ```ts
 export type MaterialPalette = {
-  /** Body */
-  background: string
   foreground: string
+  mutedForeground: string
 
-  /** Button, link */
-  primary: string
-  primaryForeground: string
+  background: string
 
-  /** Tonal button, tooltip, inactive element, secondary text */
-  secondary: string
-  secondaryForeground: string
+  /** Elevated panel */
+  card: string
+
+  /** Dialog, dropdown */
+  popover: string
 
   /** Hover, selected */
   hover: string
@@ -41,10 +40,12 @@ export type MaterialPalette = {
   /** Input border, divider */
   border: string
 
-  /** Elevated panel */
-  card: string
+  /** Button, link */
+  primary: string
+  primaryForeground: string
 
-  /** Dialog, dropdown */
-  popover: string
+  /** Tonal button, tooltip */
+  secondary: string
+  secondaryForeground: string
 }
 ```

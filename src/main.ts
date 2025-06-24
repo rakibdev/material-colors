@@ -13,13 +13,13 @@ export const isBlue = (hue: number): boolean => hue >= 200 && hue <= 260
 
 export const getNeutralChroma = (hue: number): number => {
   // Colors other than blue look too colorful with same chroma.
-  if (isPhone) return isBlue(hue) ? 4 : 1.4 // 1.4 matches phone statusbar color
+  if (isPhone) isBlue(hue) ? 4 : 1.4 // Matching phone statusbar color
   return isBlue(hue) ? 8 : 2
 }
 
 export const createPrimaryVariants = (sourceColor: Hct, dark?: boolean) => {
   const { hue } = sourceColor
-  // Soft color. Inspired by `DynamicSchemePalettesDelegateImpl2025` from material-color-utilities
+  // Soft color (Variant.EXPRESSIVE). See source code `DynamicSchemePalettesDelegateImpl2025`
   const chroma = isPhone ? (dark ? 36 : 48) : 40
   return {
     color: hctToHex(hue, chroma, dark ? 80 : 40),
@@ -49,8 +49,9 @@ export const createSurfaceVariants = (sourceColor: Hct, dark?: boolean, chroma?:
   const { hue } = sourceColor
   chroma ??= getNeutralChroma(hue)
 
-  const darkTones = isPhone ? [6, 10, 12, 14] : [8, 12, 14, 16]
-  const lightTones = [99, 94, 92, 90]
+  // [0, +4, +1, +2]
+  const darkTones = isPhone ? [6, 10, 12, 14] : [8, 12, 13, 15]
+  const lightTones = [99, 95, 94, 92]
   const tones = dark ? darkTones : lightTones
 
   return {
