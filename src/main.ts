@@ -50,7 +50,7 @@ export const createSurfaceVariants = (sourceColor: Hct, dark?: boolean, chroma?:
   chroma ??= getNeutralChroma(hue)
 
   const darkTones = isPhone ? [6, 10, 12, 14] : [8, 12, 14, 16]
-  const lightTones = [98, 94, 92, 90]
+  const lightTones = [99, 94, 92, 90]
   const tones = dark ? darkTones : lightTones
 
   return {
