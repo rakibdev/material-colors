@@ -1,8 +1,11 @@
 {
   "name": "material-colors",
-  "description": "Material You color generator.",
   "version": "1.0.0",
+  "description": "Material You color generator.",
   "author": "https://github.com/rakibdev",
+  "files": [
+    "build"
+  ],
   "type": "module",
   "exports": {
     ".": {
@@ -10,18 +13,13 @@
       "types": "./build/main.d.ts"
     }
   },
-  "files": [
-    "build"
-  ],
   "scripts": {
     "build": "bun build:src && bun build:types",
-    "build:src": "bun build ./src/main.ts --outdir ./build --minify",
+    "build:src": "bun build ./typescript/main.ts --outdir ./build --minify",
     "build:types": "tsc --project ./tsconfig.types.json",
-    "patch": "git apply --directory=node_modules/@material/material-color-utilities ./patches/material-color-utilities@0.3.0.patch",
     "pack": "bun run build && bun pm pack"
   },
   "devDependencies": {
-    "@material/material-color-utilities": "^0.3.0",
     "@types/bun": "^1.2.15",
     "typescript": "^5.8.3"
   }

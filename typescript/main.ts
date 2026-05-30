@@ -1,20 +1,16 @@
-import { Hct } from '@material/material-color-utilities/hct/hct'
-import { argbFromHex, hexFromArgb } from '@material/material-color-utilities/utils/string_utils'
+export { hctToHex, hexToHct } from './hct-oklch.ts'
+import { hctToHex, hexToHct } from './hct-oklch.ts'
 
-export const hctToHex = (hue: number, chroma: number, tone: number) => hexFromArgb(Hct.from(hue, chroma, tone).toInt())
-export const hexToHct = (hex: string) => Hct.fromInt(argbFromHex(hex))
+type Hct = ReturnType<typeof hexToHct>
 
 export const primary = '#00bfff'
 export const error = '#ff0062'
 
 const isPhone = typeof window != 'undefined' && /Android|iPhone/i.test(window.navigator.userAgent)
 
-export const isBlue = (hue: number): boolean => hue >= 200 && hue <= 260
-
-export const getNeutralChroma = (hue: number): number => {
-  // Colors other than blue look too colorful with same chroma.
-  if (isPhone) isBlue(hue) ? 4 : 1.4 // Matching phone statusbar color
-  return isBlue(hue) ? 8 : 2
+export const getNeutralChroma = (): number => {
+  if (isPhone) return 1.4 // Matching phone statusbar color in dark mode
+  return 2
 }
 
 export const createPrimaryVariants = (sourceColor: Hct, dark?: boolean) => {
@@ -38,7 +34,7 @@ export const createSecondaryVariants = (sourceColor: Hct, dark?: boolean, chroma
 
 export const createBorderColor = (sourceColor: Hct, dark?: boolean) => {
   const { hue } = sourceColor
-  const chroma = getNeutralChroma(hue)
+  const chroma = getNeutralChroma()
   return hctToHex(hue, chroma, dark ? 20 : 80)
 }
 
@@ -47,7 +43,7 @@ export const createSurfaceVariants = (sourceColor: Hct, dark?: boolean, chroma?:
   // It's just tone = [low, normal, medium, high]. I'm using normal.
   // Normal values can also be found here: https://material-web.dev/theming/color
   const { hue } = sourceColor
-  chroma ??= getNeutralChroma(hue)
+  chroma ??= getNeutralChroma()
 
   // [0, +4, +1, +2]
   const darkTones = isPhone ? [6, 10, 12, 14] : [8, 12, 13, 15]
@@ -56,7 +52,6 @@ export const createSurfaceVariants = (sourceColor: Hct, dark?: boolean, chroma?:
 
   return {
     '1': hctToHex(hue, chroma, tones[0]),
-    // Multiplier maintains proportion because blue has different chroma.
     '2': hctToHex(hue, chroma * 1.2, tones[1]),
     '3': hctToHex(hue, chroma * 1.3, tones[2]),
     '4': hctToHex(hue, chroma * 1.4, tones[3])
@@ -65,7 +60,7 @@ export const createSurfaceVariants = (sourceColor: Hct, dark?: boolean, chroma?:
 
 export const createTextVariants = (sourceColor: Hct, dark?: boolean) => {
   const { hue } = sourceColor
-  const chroma = getNeutralChroma(hue)
+  const chroma = getNeutralChroma()
   return {
     foreground: hctToHex(hue, chroma, dark ? 85 : 15),
     mutedForeground: hctToHex(hue, chroma, dark ? 60 : 45)

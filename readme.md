@@ -1,6 +1,7 @@
-Google's Material 3 color tokens are too complex.
-This package rethinks colors with a simpler shadcn-like variables and improved tree-shaking over **material-color-utilities**.
-Currently I'm using this in a UI library, VS Code theme, and userscript.
+HCT (used by Material You) is computationally expensive and not natively supported in browsers.
+I used OKLCH to produce visually equivalent colors.<br>
+And I find Material 3 color tokens overwhelming. This uses way fewer tokens similar to shadcn.<br>
+I'm using this in a UI library, neovim/vscode themes, and userscripts.
 
 ## Installation
 
