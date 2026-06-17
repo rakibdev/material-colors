@@ -32,14 +32,36 @@ bool inSrgbGamut(double r, double g, double b) {
   return r >= -eps && r <= 1 + eps && g >= -eps && g <= 1 + eps && b >= -eps && b <= 1 + eps;
 }
 
-std::string toHex(double v) {
-  int n = static_cast<int>(srgbDelinearize(std::clamp(v, 0.0, 1.0)) * 255 + 0.5);
-  return std::format("{:02x}", n);
+int linearToChannel(double v) {
+  return static_cast<int>(srgbDelinearize(std::clamp(v, 0.0, 1.0)) * 255 + 0.5);
 }
 
 }
 
-export std::string oklchToHex(double hue, double chroma, double L) {
+export struct Rgb { int r, g, b; };
+export struct Oklch { double hue, chroma, L; };
+
+export Rgb hexToRgb(const std::string& hex) {
+  std::string h = hex[0] == '#' ? hex.substr(1) : hex;
+  return {
+    (int)std::stoul(h.substr(0, 2), nullptr, 16),
+    (int)std::stoul(h.substr(2, 2), nullptr, 16),
+    (int)std::stoul(h.substr(4, 2), nullptr, 16)
+  };
+}
+
+export Oklch rgbToOklch(Rgb rgb) {
+  double r = srgbLinearize(rgb.r / 255.0);
+  double g = srgbLinearize(rgb.g / 255.0);
+  double b = srgbLinearize(rgb.b / 255.0);
+  auto [L, a, bv] = linearSrgbToOklab(r, g, b);
+  double chroma = std::sqrt(a * a + bv * bv);
+  double hue = std::atan2(bv, a) * 180 / std::numbers::pi;
+  if (hue < 0) hue += 360;
+  return {hue, chroma, L};
+}
+
+export Rgb oklchToRgb(double hue, double chroma, double L) {
   double hRad = hue * std::numbers::pi / 180;
   double lo = 0, hi = chroma;
   for (int i = 0; i < 24; i++) {
@@ -48,19 +70,14 @@ export std::string oklchToHex(double hue, double chroma, double L) {
     if (inSrgbGamut(r, g, b)) lo = mid; else hi = mid;
   }
   auto [r, g, b] = oklabToLinearSrgb(L, lo * std::cos(hRad), lo * std::sin(hRad));
-  return "#" + toHex(r) + toHex(g) + toHex(b);
+  return {linearToChannel(r), linearToChannel(g), linearToChannel(b)};
 }
 
-export struct Oklch { double hue, chroma, L; };
+export std::string oklchToHex(double hue, double chroma, double L) {
+  auto [r, g, b] = oklchToRgb(hue, chroma, L);
+  return std::format("#{:02x}{:02x}{:02x}", r, g, b);
+}
 
 export Oklch hexToOklch(const std::string& hex) {
-  std::string h = hex[0] == '#' ? hex.substr(1) : hex;
-  double r = std::stoul(h.substr(0, 2), nullptr, 16) / 255.0;
-  double g = std::stoul(h.substr(2, 2), nullptr, 16) / 255.0;
-  double b = std::stoul(h.substr(4, 2), nullptr, 16) / 255.0;
-  auto [L, a, bv] = linearSrgbToOklab(srgbLinearize(r), srgbLinearize(g), srgbLinearize(b));
-  double chroma = std::sqrt(a * a + bv * bv);
-  double hue = std::atan2(bv, a) * 180 / std::numbers::pi;
-  if (hue < 0) hue += 360;
-  return {hue, chroma, L};
+  return rgbToOklch(hexToRgb(hex));
 }

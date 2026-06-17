@@ -22,13 +22,26 @@ constexpr double CHROMA_RATIO = 379;
 
 }
 
-export std::string hctToHex(double hue, double chroma, double tone) {
-  return oklchToHex(hue, chroma / CHROMA_RATIO, toneToL(tone));
-}
-
 export struct Hct { double hue, chroma, tone; };
 
+export Oklch hctToOklch(double hue, double chroma, double tone) {
+  return {hue, chroma / CHROMA_RATIO, toneToL(tone)};
+}
+
+export Hct oklchToHct(Oklch oklch) {
+  return {oklch.hue, oklch.chroma * CHROMA_RATIO, lToTone(oklch.L)};
+}
+
+export Rgb hctToRgb(double hue, double chroma, double tone) {
+  auto [h, c, L] = hctToOklch(hue, chroma, tone);
+  return oklchToRgb(h, c, L);
+}
+
+export std::string hctToHex(double hue, double chroma, double tone) {
+  auto [h, c, L] = hctToOklch(hue, chroma, tone);
+  return oklchToHex(h, c, L);
+}
+
 export Hct hexToHct(const std::string& hex) {
-  auto [hue, chroma, L] = hexToOklch(hex);
-  return {hue, chroma * CHROMA_RATIO, lToTone(L)};
+  return oklchToHct(hexToOklch(hex));
 }

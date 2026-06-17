@@ -34,7 +34,6 @@ struct Surfaces { std::string s1, s2, s3, s4; };
 
 Surfaces createSurfaceVariants(const Hct& src, bool dark = false, double chroma = 0) {
   if (chroma == 0) chroma = getNeutralChroma();
-  // Normal tone values: https://material-web.dev/theming/color
   auto tones = dark ? std::array{8.0, 12.0, 13.0, 15.0} : std::array{99.0, 95.0, 94.0, 92.0};
   return {hctToHex(src.hue, chroma,       tones[0]),
           hctToHex(src.hue, chroma * 1.2, tones[1]),
