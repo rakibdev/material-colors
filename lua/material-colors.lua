@@ -26,7 +26,7 @@ function M.createSecondaryVariants(sourceColor, dark, chroma)
   local h = sourceColor.hue
   if chroma == nil then chroma = dark and 26 or 32 end
   return {
-    color = hct.hctToHex(h, chroma, dark and 30 or 80),
+    color = hct.hctToHex(h, chroma, dark and 30 or 90),
     foreground = hct.hctToHex(h, chroma, dark and 80 or 20),
   }
 end

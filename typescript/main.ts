@@ -27,7 +27,7 @@ export const createSecondaryVariants = (sourceColor: Hct, dark?: boolean, chroma
   const { hue } = sourceColor
   chroma ??= dark ? 26 : 32
   return {
-    color: hctToHex(hue, chroma, dark ? 30 : 80),
+    color: hctToHex(hue, chroma, dark ? 30 : 90),
     foreground: hctToHex(hue, chroma, dark ? 80 : 20)
   }
 }

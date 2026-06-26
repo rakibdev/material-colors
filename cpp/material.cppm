@@ -22,7 +22,7 @@ Variants createPrimaryVariants(const Hct& src, bool dark = false) {
 
 Variants createSecondaryVariants(const Hct& src, bool dark = false, double chroma = 0) {
   if (chroma == 0) chroma = dark ? 26.0 : 32.0;
-  return {hctToHex(src.hue, chroma, dark ? 30 : 80),
+  return {hctToHex(src.hue, chroma, dark ? 30 : 90),
           hctToHex(src.hue, chroma, dark ? 80 : 20)};
 }
 
