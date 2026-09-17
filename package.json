@@ -1,8 +1,10 @@
 {
-  "name": "material-colors",
+  "name": "@rakibdev/material-colors",
   "version": "1.0.0",
   "description": "Material You color generator.",
   "author": "https://github.com/rakibdev",
+  "repository": "https://github.com/rakibdev/material-colors.git",
+  "publishConfig": { "registry": "https://npm.pkg.github.com" },
   "files": [
     "build"
   ],
@@ -17,7 +19,7 @@
     "build": "bun build:src && bun build:types",
     "build:src": "bun build ./typescript/main.ts --outdir ./build --minify",
     "build:types": "tsc --project ./tsconfig.types.json",
-    "pack": "bun run build && bun pm pack"
+    "release": "bun run build && bun publish"
   },
   "devDependencies": {
     "@types/bun": "^1.2.15",
